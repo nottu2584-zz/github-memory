@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import axios from "axios";
+import Grid from "./Grid";
 
 function App() {
   const [items, setItems] = useState([]);
+  const [score, setScore] = useState(0);
+  const [time, setTime] = useState(0);
 
   useEffect(() => {
     axios
@@ -15,6 +18,7 @@ function App() {
           return {
             id: item.id,
             avatar: item.avatar_url,
+            login: item.login
           };
         })).slice(0,6); // Get 6 contributors from the suffle
 
@@ -29,9 +33,24 @@ function App() {
           )
         );
       });
+
+      // Start timer
+      restartTime();
   }, []);
 
-  const  shuffle = (arr) => {
+  useEffect(() => {
+    if (time > 0) {
+      setTimeout(() => setTime(time - 1), 1000);
+    } else {
+      // End game.
+    }
+  }, [time]);
+
+  const restartTime = () => {
+    setTime(60);
+  };
+
+  const shuffle = (arr) => {
     var currentIndex = arr.length, temporaryValue, randomIndex;
   
     while (0 !== currentIndex) {
@@ -50,11 +69,13 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">Github Memory</header>
-      <ul>
-        {items.map((item) => {
-          return <li>{item.avatar}</li>;
-        })}
-      </ul>
+      <div className="App-content">
+        <Grid items={items}></Grid>
+      </div>
+      <footer className="App-footer">
+        <div className="time">Time: {time} seconds</div>
+        <div className="score">Score: {score}</div>
+      </footer>
     </div>
   );
 }
