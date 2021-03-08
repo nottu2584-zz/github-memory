@@ -1,0 +1,25 @@
+.grid {
+    display: inline-grid;
+    align-content: center;
+    justify-content: center;
+    grid-gap: 10px;
+    grid-template-columns: repeat(4, 150px);
+    grid-template-rows:  repeat(3, 150px);
+
+    width: 100%;
+    height: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(4, 100px);
+        grid-template-rows:  repeat(3, 100px);
+    }    
+}
+
+@media only screen and (max-width: 480px) {
+    .grid {
+        grid-template-columns: repeat(3, 100px);
+        grid-template-rows:  repeat(4, 100px);
+    }    
+}

@@ -1,0 +1,43 @@
+.App-modal {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #282c34;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+.App-modal .wrapper,
+.App-modal .content {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.App-modal .wrapper {
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+}
+
+.App-modal .content {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  justify-content: stretch;
+}
+
+.App-modal button {
+  background-color: transparent;
+  border: 2px solid #282c34;
+  border-radius: 10px;
+  font-size: 1.25em;
+  line-height: 2em;
+  padding: 0 50px;
+  color: #282c34;
+}
+
+@media only screen and (max-width: 480px) {
+  .App-modal button {
+    padding: 0 20px;
+  }
+}
