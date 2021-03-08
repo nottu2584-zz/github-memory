@@ -14,33 +14,6 @@ const App = () => {
   const [visibleItems, setVisibleItems] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(
-        "https://api.github.com/repos/facebook/react/contributors?per_page=25&page=1"
-      )
-      .then((res) => {
-        const newItems = res.data
-          .map((item) => {
-            return {
-              id: item.id,
-              avatar: item.avatar_url,
-              login: item.login,
-            };
-          })
-          .slice(0, 6); // Get 6 contributors from the suffle
-
-        setItems(
-          newItems.concat(
-            newItems.map((item) => {
-              return {
-                ...item,
-                id: item.id,
-              };
-            })
-          )
-        );
-      });
-
     // Start Game at load
     startGame();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -84,6 +57,13 @@ const App = () => {
     }
   };
 
+  const cleanUpGame = () => {
+    setVisibleItems([]);
+    setFinishedItems([]);
+    setItems([]);
+    setScore(0);
+  };
+
   const shuffle = (arr) => {
     var currentIndex = arr.length,
       temporaryValue,
@@ -101,14 +81,40 @@ const App = () => {
     return arr;
   };
 
-  const startGame = () => {
+  const startGame = async () => {
     showModal(false);
-    setVisibleItems([]);
-    setFinishedItems([]);
-    setScore(0);
-    setItems(shuffle(items));
-    setGame(true);
-    setTime(60);
+    cleanUpGame();
+    axios
+      .get(
+        "https://api.github.com/repos/facebook/react/contributors?per_page=25&page=1"
+      )
+      .then((res) => {
+        const newItems = shuffle(
+          res.data.map((item) => {
+            return {
+              id: item.id,
+              avatar: item.avatar_url,
+              login: item.login,
+            };
+          })
+        ).slice(0, 6); // Get 6 contributors from the suffle
+
+        setItems(
+          newItems.concat(
+            newItems.map((item) => {
+              return {
+                ...item,
+                id: item.id,
+              };
+            })
+          )
+        );
+      })
+      .then((res) => {
+        console.log(res);
+        setGame(true);
+        setTime(60);
+      });
   };
 
   return (
@@ -128,7 +134,10 @@ const App = () => {
         <div className="score">Score: {score}</div>
       </footer>
       <Modal visible={modal}>
-        <div className="title">Game<br /> Over</div>
+        <div className="title">
+          Game
+          <br /> Over
+        </div>
         <div className="score">Score: {score}</div>
         <div className="button">
           <button onClick={startGame}>New game!</button>
