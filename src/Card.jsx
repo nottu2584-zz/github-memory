@@ -3,11 +3,11 @@ import React from "react";
 import "./Card.css";
 
 const Card = (props) => {
-  const {item} = props;
+  const { className, item, onClick } = props;
 
   return (
-    <div className="Card">
-        <img src={item.avatar} alt={item.login}/>
+    <div className={`card ${className}`} onClick={onClick}>
+      <img src={item.avatar} alt={item.login} />
     </div>
   );
 };

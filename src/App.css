@@ -8,9 +8,14 @@
   height: 100%;
 }
 
+.App-header,
+.App-footer {
+  padding: 20px;
+}
+
 .App-header {
-  font-size: calc(10px + 2vmin);
-  height: 75px;
+  font-size: 2.25em;
+  line-height: 2.5em;
 }
 
 .App-content {
@@ -23,9 +28,12 @@
 
 .App-footer {
   display: flex;
+  flex-wrap: wrap;
+  font-size: 1.25em;
+  line-height: 1.5em;
   align-content: stretch;
   flex-shrink: 0;
-  padding: 20px
+  padding: 20px;
 }
 
 .App-footer .score,
@@ -35,4 +43,20 @@
 
 .App-footer .score {
   flex: 1 1 auto;
+}
+
+@media only screen and (max-width: 480px) {
+  .App-header {
+    font-size: 1.5em;
+    line-height: 1.75em;
+  }
+
+  .App-footer {
+    text-align: left;
+  }
+
+  .App-footer .score,
+  .App-footer .time {
+    flex: 1 1 100%;
+  }
 }

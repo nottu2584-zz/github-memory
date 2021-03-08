@@ -1,4 +1,4 @@
-.Grid {
+.grid {
     display: inline-grid;
     align-content: center;
     justify-content: center;
@@ -10,8 +10,8 @@
     height: 100%;
 }
 
-@media only screen and (max-width: 600px) {
-    .Grid {
+@media only screen and (max-width: 480px) {
+    .grid {
         grid-template-columns: 100px 100px 100px;
         grid-template-rows:  100px 100px 100px 100px;
     }    
