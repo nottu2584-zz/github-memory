@@ -21,7 +21,7 @@ afterEach(() => {
 
 it("renders with item", async () => {
   const fakeItem = {
-    id: "32",
+    id: "1",
     login: "john_doe",
     avatar: "https://reactjs.org/favicon-32x32.png",
   };
