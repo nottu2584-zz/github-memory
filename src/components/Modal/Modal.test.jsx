@@ -1,5 +1,6 @@
 // Modal.test.jsx
 
+import { shallow } from "enzyme";
 import React from "react";
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
@@ -19,22 +20,28 @@ afterEach(() => {
   container = null;
 });
 
-it("renders with children", async () => {
-  const visible = true;
-
-  // Use the asynchronous version of act to apply resolved promises
-  await act(async () => {
-    render(
-      <Modal visible={visible}>
-        <div className="title">Test Modal</div>
-        <div className="button">
-          <button onClick={()=>{}}>Button</button>
-        </div>
-      </Modal>,
-      container
-    );
+describe("Modal Component", () => {
+  it("renders", () => {
+    shallow(<Modal />);
   });
 
-  expect(container.querySelector(".title")).toHaveTextContent("Test Modal");
-  expect(container.querySelector("button")).toHaveTextContent("Button");
+  it("renders with children", async () => {
+    const visible = true;
+
+    // Use the asynchronous version of act to apply resolved promises
+    await act(async () => {
+      render(
+        <Modal visible={visible}>
+          <div className="title">Test Modal</div>
+          <div className="button">
+            <button onClick={() => {}}>Button</button>
+          </div>
+        </Modal>,
+        container
+      );
+    });
+
+    expect(container.querySelector(".title")).toHaveTextContent("Test Modal");
+    expect(container.querySelector("button")).toHaveTextContent("Button");
+  });
 });

@@ -1,6 +1,6 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import axios from "axios";
 import Grid from "./components/Grid/Grid";
 import Modal from "./components/Modal/Modal";
 
@@ -14,12 +14,13 @@ const App = () => {
   const [visibleItems, setVisibleItems] = useState([]);
 
   useEffect(() => {
-    // Start Game at load
+    // Start game at load
     startGame();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
+    // Load timer on game state
     let interval = null;
     if (game && time > 0) {
       interval = setInterval(() => {
@@ -37,17 +38,24 @@ const App = () => {
   }, [time]);
 
   useEffect(() => {
+    // End game when items found
     if (finishedItems.length > 0 && finishedItems.length === items.length) {
       showModal(true);
       setGame(false);
     }
   }, [finishedItems, items]);
 
+  /**
+   * Identifies and stores found items
+   * @param {Number} firstIndex 
+   * @param {Number} secondIndex 
+   */
   const checkItems = (firstIndex, secondIndex) => {
     if (
       firstIndex !== secondIndex &&
       items[firstIndex].id === items[secondIndex].id
     ) {
+      // Found. Increment score and store
       setScore(score + 100);
       setFinishedItems([...finishedItems, firstIndex, secondIndex]);
     } else {
@@ -57,6 +65,9 @@ const App = () => {
     }
   };
 
+  /**
+   * Resets item states
+   */
   const cleanUpGame = () => {
     setVisibleItems([]);
     setFinishedItems([]);
@@ -64,6 +75,11 @@ const App = () => {
     setScore(0);
   };
 
+  /**
+   * Fisher-Yates shuffle implementation
+   * @param   {Array} arr The array to shuffle
+   * @returns {Array}
+   */
   const shuffle = (arr) => {
     var currentIndex = arr.length,
       temporaryValue,
@@ -81,6 +97,9 @@ const App = () => {
     return arr;
   };
 
+  /**
+   * Starts the game asynchronously
+   */
   const startGame = async () => {
     showModal(false);
     cleanUpGame();
@@ -97,7 +116,7 @@ const App = () => {
               login: item.login,
             };
           })
-        ).slice(0, 6); // Get 6 contributors from the suffle
+        ).slice(0, 6); // Get first 6 contributors from the shuffle
 
         setItems(
           newItems.concat(
@@ -110,8 +129,8 @@ const App = () => {
           )
         );
       })
-      .then((res) => {
-        console.log(res);
+      .then(() => {
+        // Start new game when contributors are loaded
         setGame(true);
         setTime(60);
       });

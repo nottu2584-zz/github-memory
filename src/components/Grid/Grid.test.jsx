@@ -24,22 +24,79 @@ describe("Grid Component", () => {
   const fakeItems = [
     {
       id: "1",
-      login: "john_doe",
+      login: "test1",
       avatar: "https://reactjs.org/favicon-32x32.png",
     },
     {
       id: "2",
-      login: "jane_doe",
+      login: "test2",
       avatar: "https://reactjs.org/favicon-32x32.png",
     },
     {
       id: "3",
-      login: "joss_doe",
+      login: "test3",
       avatar: "https://reactjs.org/favicon-32x32.png",
     },
+    {
+      id: "4",
+      login: "test4",
+      avatar: "https://reactjs.org/favicon-32x32.png",
+    },
+    {
+      id: "5",
+      login: "test5",
+      avatar: "https://reactjs.org/favicon-32x32.png",
+    },
+    {
+      id: "6",
+      login: "test6",
+      avatar: "https://reactjs.org/favicon-32x32.png",
+    },
+    {
+      id: "7",
+      login: "test7",
+      avatar: "https://reactjs.org/favicon-32x32.png",
+    },
+    {
+      id: "8",
+      login: "test8",
+      avatar: "https://reactjs.org/favicon-32x32.png",
+    },
+    {
+      id: "9",
+      login: "test9",
+      avatar: "https://reactjs.org/favicon-32x32.png",
+    },
+    {
+      id: "10",
+      login: "test10",
+      avatar: "https://reactjs.org/favicon-32x32.png",
+    },
+    {
+      id: "11",
+      login: "test11",
+      avatar: "https://reactjs.org/favicon-32x32.png",
+    },
+    {
+      id: "12",
+      login: "test12",
+      avatar: "https://reactjs.org/favicon-32x32.png",
+    }
   ];
 
-  it("renders Card", async () => {
+  it("renders", () => {
+    shallow(
+      <Grid
+        items={fakeItems}
+        visibleItems={[]}
+        setVisibleItems={[]}
+        finishedItems={[]}
+        checkItems={() => {}}
+      />
+    );
+  });
+
+  it("renders a card", async () => {
     jest.spyOn(global, "fetch").mockImplementation(() =>
       Promise.resolve({
         json: () => Promise.resolve(fakeItems),
@@ -62,7 +119,7 @@ describe("Grid Component", () => {
     global.fetch.mockRestore();
   });
 
-  it("renders item with Card", async () => {
+  it("renders item card with images", async () => {
     jest.spyOn(global, "fetch").mockImplementation(() =>
       Promise.resolve({
         json: () => Promise.resolve(fakeItems),
