@@ -47,8 +47,8 @@ const App = () => {
 
   /**
    * Identifies and stores found items
-   * @param {Number} firstIndex 
-   * @param {Number} secondIndex 
+   * @param {Number} firstIndex
+   * @param {Number} secondIndex
    */
   const checkItems = (firstIndex, secondIndex) => {
     if (
@@ -119,13 +119,15 @@ const App = () => {
         ).slice(0, 6); // Get first 6 contributors from the shuffle
 
         setItems(
-          newItems.concat(
-            newItems.map((item) => {
-              return {
-                ...item,
-                id: item.id,
-              };
-            })
+          shuffle(
+            newItems.concat(
+              newItems.map((item) => {
+                return {
+                  ...item,
+                  id: item.id,
+                };
+              })
+            )
           )
         );
       })
